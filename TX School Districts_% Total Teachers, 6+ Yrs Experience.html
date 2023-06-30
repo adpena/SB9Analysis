@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Load Leaflet from CDN-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <!-- Load Chroma.js (for colors) from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"></script>
+
+    <!-- Our custom JavaScript file -->
+    <script src="map.js"></script>
+
+    <!-- CSS Styling -->
+    <style>
+        #map {
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([31.9686, -99.9018], 6);
+
+        // Add a base map layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Define the color scale
+        var colorScale = chroma.scale('YlOrRd').mode('lch').domain([0, 1], 'quantiles');
+
+        // Load the GeoJSON data
+        fetch('merged.geojson')
+            .then(response => response.json())
+            .then(data => {
+                // Add the GeoJSON layer
+                L.geoJson(data, {
+                    style: feature => ({
+                        fillColor: colorScale(feature.properties.experience_percentage).hex(),
+                        weight: 1,
+                        color: 'black',
+                        fillOpacity: 0.9,
+                        smoothFactor: 0
+                    })
+                }).addTo(map);
+            });
+    </script>
+</body>
+</html>
