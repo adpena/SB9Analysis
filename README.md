@@ -108,3 +108,9 @@ the logic, assumptions, and outputs stay inspectable in one place.
 - The analysis is tied to a specific legislative period and historical data snapshot.
 - Some outputs are static artifacts retained for reference rather than regenerated on every run.
 - Geographic map generation depends on an external district boundary GeoJSON file, which is why the path is configurable instead of hardcoded.
+
+## License
+
+The source code and original documentation in this repository are released under the MIT License. See [LICENSE](LICENSE).
+
+Underlying public datasets, legislative materials, and published workbook artifacts may carry their own source or usage terms.
