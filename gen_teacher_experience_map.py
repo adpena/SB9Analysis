@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import geopandas as gpd
 import folium
@@ -5,7 +6,8 @@ import branca
 import json
 
 # Load the GeoJSON data
-gdf = gpd.read_file('/Users/adpena/PycharmProjects/RespectCampaignMap/Current_Districts_2023.geojson')
+districts_geojson = os.environ.get("SB9_DISTRICTS_GEOJSON", "Current_Districts_2023.geojson")
+gdf = gpd.read_file(districts_geojson)
 
 # Load the teacher experience data
 df = pd.read_csv('DSTAF.csv')
